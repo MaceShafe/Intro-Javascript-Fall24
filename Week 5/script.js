@@ -15,19 +15,15 @@ document.getElementById('InputEmail').onblur = function() {
         //which is why I settled on the above ^
 
 
-// THE FORM OBJECT ***
-// let customForm = document.forms[0]; // form index
+// FORM OBJECT 
+
  let customForm = document.forms["customForm"]; // form name
-// let customForm = document.getElementById("userFormID"); // form ID
 
 customForm.addEventListener('input', changed);
 
-// customForm.elements["password"].addEventListener("invalid", function(evt) {
-//    // fevt.preventDefault();
-// console.log("Invalid fired");
-// }};
 
 function changed(event) {
+   
     // console.log(this.name);
     // console.log(InputEmail.value);
     // for (let x = 0; x < customForm.length; x++) {
