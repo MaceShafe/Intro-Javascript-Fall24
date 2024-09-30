@@ -25,3 +25,7 @@ button{
     margin: 10px;
     padding: 10px;
 }
+
+input:invalid {
+    outline: rgb(162, 23, 23) solid 3px;
+  }

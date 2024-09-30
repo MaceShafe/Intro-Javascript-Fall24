@@ -1,111 +1,126 @@
+//based a good amount of this code off of going through the video tutorial!
+
+//majority of this will show up in the console! Made it look nice and fancy so it isnt that much of a headache to look through
+
 "use-strict";
+let customForm = document.forms["customForm"]; // form name
 
-// FORM CONTROL
+const email = customForm.elements["email"]; //email
+const username = customForm.elements["username"]; //username
+const password = customForm.elements["password"]; //password
+const phoneNum = customForm.elements["phoneNumber"]; //phone Number
+const selectList = customForm.elements["pickANumber"]; //pick a number list
+const multiSelectList = customForm.elements["pickATechCompany"]; //favorite tech company list 
 
 
-document.getElementById('InputEmail').focus();
+//focuses input email
+email.focus();
 
 
-document.getElementById('InputEmail').onblur = function() {
-    console.log("User has clicked away from the email input");
+email.onblur = function () {
+    console.log('---------');
+    console.log("User has clicked away from the email input"); //logs when user clicks away from email input
+
 };
-        //I am unsure on how to include in a way that meets the criteria of the assignment 
-        //"blur(): Remove focus from an input field when the user clicks away."
-        //The only way I can see this is to use blur after they click away, which is unnecessary
-        //which is why I settled on the above ^
 
 
-// FORM OBJECT 
-
- let customForm = document.forms["customForm"]; // form name
-
-customForm.addEventListener('input', changed);
+customForm.onchange = changed; //causes changed event whenever an input is changed
 
 
-function changed(event) {
-   
-    // console.log(this.name);
-    // console.log(InputEmail.value);
-    // for (let x = 0; x < customForm.length; x++) {
-    //     console.log(customForm.elements[x].value + "\n");
-    // }
-console.log("form changed")
-let multiSelectList = document.getElementById("mid");
+function changed() {
+
+    console.log('################'); //just a vidual cue for the console to show when it starts!
+    console.log("form changed");
 
 
+    console.log('---------');
+    console.log('the user has selected:');
+    console.log(document.querySelector('input[name="exampleRadios"]:checked').value); //logs which radio is checked
 
-        for (let i = 0; i < multiSelectList.options.length; i++) {
-            if (multiSelectList.options[i].selected) {
-                console.log(multiSelectList.options[i].value); // or innerHTML
-            }
+
+    console.log('---------');
+    console.log('Email:');
+
+    email.setCustomValidity(""); //still have no clue how or why this works, but i think this resets it?
+
+    if (email.validity.patternMismatch) {
+        email.setCustomValidity("Email must be an actual email");
+
+    } if (email.validity.valueMissing) {
+        email.setCustomValidity("Email must not be blank");
+    } else {
+        console.log('email input success');
+    };
+
+
+    console.log('---------');
+    console.log('Phone:');
+    validatePhoneNum();
+
+    function validatePhoneNum() {
+        var pattern = /^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/; //Thanks to this stack overflow thread for providing a phone number validation
+        phoneNum.setCustomValidity("");                                                   //https://stackoverflow.com/questions/16699007/regular-expression-to-match-standard-10-digit-phone-number
+
+        if (!pattern.test(phoneNum.value)) {
+            phoneNum.setCustomValidity("Phone Number must be an actual phone number!");
+            console.log('validation FAILED');
+        } else {console.log('validation SUCCESS');
         }
+    }
 
-    // loop method for radios
-    // let going = customForm.elements.exampleRadios;
-    // for (let i = 0; i < going.length; i++) {
-    //     if (going[i].checked) {
-    //         console.log(going[i].value);
-    //         break;
-    //     }
-    // }
 
-    // faster method fon radios
-    // console.log(document.querySelector('input[name="exampleRadios"]:checked').value);
+    console.log('---------');
+    console.log('Username:');
 
-    // if (customForm.elements["password"].validity.valid) { // book error? use validity.valid
-    // console.log("valid");
-    // }else{
-    // console.log("invalid");
-    // }
+    username.setCustomValidity("");
 
-    customForm.elements["password"].setCustomValidity(""); // must go before checkValidity !!
-    if (customForm.elements["password"].checkValidity()) { // applied to one field
+    if (!username.validity.valueMissing) { //username logging
+        console.log("here!");
+    } else {
+        console.log("missing");
+        username.setCustomValidity("Username must not be blank ya silly goof");
+    }
+
+
+    console.log('---------');
+    console.log('Password:');
+    password.setCustomValidity("");
+
+    if (password.validity.valid) { //password validation logging
         console.log("valid");
     } else {
         console.log("invalid");
-        customForm.elements["password"].setCustomValidity(customForm.elements["password"].value + " is an invalid password");
+        password.setCustomValidity("Password must not be blank ya silly goof");
+
+    };
+
+
+    console.log('---------');
+    console.log('multilist:');
+
+    for (let i = 0; i < multiSelectList.options.length; i++) { //loops through the multiselect list until it matches its length
+        if (multiSelectList.options[i].selected) {
+            console.log(multiSelectList.options[i].value); // or innerHTML
+        }
     }
 
-    // customForm.elements["cc"].setCustomValidity(""); //must go before checkValidity !!
-    // if (customForm.elements["cc"].validity.patternMismatch) { // applied to one field
-    //     console.log("cc invalid");
-    //     customForm.elements["cc"].setCustomValidity(customForm.elements["cc"].value + " is an invalid cc number");
-    // } else {
-    //     console.log("cc valid");
-    // }
+    console.log('---------');
+    console.log('formOverall');
 
-// customForm.elements["CVC"].setCustomValidity(""); // must go before checkValidity !!
-// iF(1(/^\d{3]$/.test(customForm.elements["CVC"].value))) <
-//console.log("CVC invalid");
-//customForm.elements["CVC"].setCustomValidity(customForm.elements["CVC"].value+" is an invalid CVC number");
-//NJelse{
-//console.log("CVC valid");
-
-customForm.reportValidity();
-
+    if (customForm.checkValidity()) { //checks validity of overall form
+        console.log("valid");
+    } else {
+        console.log("invalid");
+    }
 }
 
-// ELEMENTS OF A FORM **************
-//let email = customForm. elements[0]; // by "name" or getElementByID
+//submit validation
+document.getElementById("submitButton").addEventListener("click", submitCheck);
 
-
-
-// ELEMENTS OF A FORM
-let email = customForm.elements[0]; // by "name" or getElementByID
-
-
-// SELECT LISTS
-let selectList = document.getElementById("sid");
-// for (let i=0; i<selectList.options.length; i++) {
-//console.log(selectList.options[i].value); // or innerHTML
-//}
-
-
-// FORMATTING
-let pi = 3.145647357;
-let big = 1000000.999
-
-console.log(pi.toFixed(2));
-console.log(big.toLocaleString("en-US", {style: "currency", currency: "USD"})); // fr //"en-US", {style: "currency", currency: "USD"]
-
-//ended off at 32 mins
+function submitCheck() {
+    if (customForm.checkValidity()) {
+        document.getElementById("submitText").innerHTML = "Valid! You'll be redirected"
+    } else {
+        document.getElementById("submitText").innerHTML = "Invalid, try again!"
+    };
+};
