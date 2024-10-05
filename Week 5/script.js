@@ -59,7 +59,7 @@ function changed() {
 
     function validatePhoneNum() {
         var pattern = /^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/; //Thanks to this stack overflow thread for providing a phone number validation
-        phoneNum.setCustomValidity("");                                                   //https://stackoverflow.com/questions/16699007/regular-expression-to-match-standard-10-digit-phone-number
+        phoneNum.setCustomValidity("");                                                   
 
         if (!pattern.test(phoneNum.value)) {
             phoneNum.setCustomValidity("Phone Number must be an actual phone number!");
