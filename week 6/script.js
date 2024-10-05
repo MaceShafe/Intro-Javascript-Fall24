@@ -19,6 +19,7 @@ let sonic = {
     }
 
 };
+
 const genesis = "Sega Genesis/Megadrive"
 const segaCD = "Sega CD, a Sega Genesis add-on"
 const thirtytwox = "Sega 32X, a Sega Genesis add-on"
@@ -116,3 +117,10 @@ output.innerHTML += "<p>"+json
 
 let newObject = JSON.parse(json)
 output.innerHTML += "<p>"+newObject.game
+
+
+// console.log output of public method
+// console.log attempt to access private method (should show error)
+
+console.log(sonic);
+console.log(releases);
