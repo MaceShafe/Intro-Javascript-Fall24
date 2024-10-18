@@ -25,15 +25,13 @@ xhr.open("get", "file.php");
 xhr.send("id=41088");
 
 // 3.  What property of the xhr would contain the response text?
+ //xhr.responsetext
 
-console.log("xhr.responseText:");
-console.log(xhr.responseText);
-//  doesnt exist in php file so it comes up blank
 
 // 4.  Do the same request with Fetch! (just 1 line  ... no need for outputting the response)
 
 fetch("file.php*id=41088");
-//  doesnt exist in php file so it comes up with an error
+//  doesnt exist in php file so it comes up with an error? 
 
 //‼️     If I was meant to put something in the php file let me know, I'll need to work that out.
 
